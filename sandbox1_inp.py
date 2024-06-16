@@ -1,4 +1,11 @@
+from inspect_py.utils_inp import *
+from typing import List, Tuple, Literal, Union
+from pathlib import Path
 
+def get_builtin_func():
+    import builtins
+    all_builtin_functions = [name for name in dir(builtins) if callable(getattr(builtins, name))]
+    return all_builtin_functions
 
 def input_params(function):
     import inspect
@@ -9,7 +16,7 @@ def input_params(function):
     out_list = [param.name for param in signature.parameters.values()]
     return out_list
 
-def get_fun_names(py_code_path: str):
+def get_fun_names(py_code_path: Union[str,Path]):
     """
     Analyzes a Python file and returns a list of function names defined in the file.
 
@@ -25,8 +32,8 @@ def get_fun_names(py_code_path: str):
     """
     import ast
 
-    with open(py_code_path, "r") as file:
-        tree = ast.parse(file.read(), filename=py_code_path)
+    with open(str(py_code_path), "r") as file:
+        tree = ast.parse(file.read(), filename=str(py_code_path))
 
     function_names = []
 
@@ -45,71 +52,3 @@ def get_fun_names(py_code_path: str):
 # print(functions)
 
 
-def func_depend_table(py_code_path: str):
-    """
-    Analyzes a Python file and returns a DataFrame containing the functions
-    defined in the file along with their dependencies on other functions
-    within the same file.
-
-    Parameters
-    ----------
-    py_code_path : str
-        The path of the Python file (.py) to analyze.
-
-    Returns
-    -------
-    pd.DataFrame
-        A DataFrame with two columns: 'function' and 'dependency', where
-        'function' is a function defined in the file and 'dependency' is
-        another function within the same file that it depends on.
-    """
-    import ast
-    import pandas as pd
-
-    with open(py_code_path, "r") as file:
-        tree = ast.parse(file.read(), filename=py_code_path)
-    
-    functions = []
-    dependencies = []
-
-    function_names = get_fun_names(py_code_path)
-    
-    class FunctionVisitor(ast.NodeVisitor):
-        def visit_FunctionDef(self, node):
-            function_name = node.name
-            self.generic_visit(node)
-            
-            for child in ast.walk(node):
-                if isinstance(child, ast.Call):
-                    if isinstance(child.func, ast.Name):
-                        dependencies.append((function_name, child.func.id))
-                    elif isinstance(child.func, ast.Attribute):
-                        dependencies.append((function_name, child.func.attr))
-            
-            functions.append(function_name)
-    
-    visitor = FunctionVisitor()
-    visitor.visit(tree)
-    
-    df = pd.DataFrame(dependencies, columns=['function', 'dependency'])
-    
-    return df
-
-# Example usage
-# df = func_depend_table('path_to_your_python_file.py')
-# print(df)
-
-
-# Example usage
-# df = func_depend_table('path_to_your_python_file.py')
-# print(df)
-
-
-# Example usage
-# df = func_depend_table('path_to_your_python_file.py')
-# print(df)
-
-
-# Example usage
-# df = func_depend_table('path_to_your_python_file.py')
-# print(df)
