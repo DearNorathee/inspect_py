@@ -10,6 +10,7 @@ from pathlib import Path
 def run_1_notebook(notebook_path,kernel_name:str = 'python3', notebook_version = 4):
     import nbformat
     from nbconvert.preprocessors import ExecutePreprocessor
+    import os
     """
     for run single notebook
     """

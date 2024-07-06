@@ -1,6 +1,40 @@
 from inspect_py.utils_inp import *
-from typing import List, Tuple, Literal, Union
+from typing import *
 from pathlib import Path
+
+def assert_message(actual:Any,expect:Any, verbose:int = 0) -> str:
+    # not done with list
+    import numpy as np
+    Scalar_Numpy = Union[np.number, np.bool_, np.object_, np.string_]
+    Scalar_BuiltIn = Union[int, float, str, bool, np.number, np.bool_]
+    Scaler = Union[Scalar_BuiltIn,Scalar_Numpy]
+    
+    
+    if type(actual) != type(expect):
+        out_str = f"The type of actual is {type(actual)} while it's expected to be {type(expect)}"
+        return out_str
+    else:
+        if isinstance(actual, Scaler):
+            pass
+        elif isinstance(actual, list):
+            pass
+        elif issubclass(actual, Exception):
+            # check error type
+            pass
+        elif isinstance(actual, dict):
+            if len(actual) != len(expect):
+                out_str = f"The length of actual is {len(actual)} while it's expected to have the length of {len(expect)}\n"
+            key_actual = list(actual.keys())
+            key_expect = list(expect.keys())
+            
+            for key, value in actual.items():
+                expect_value = expect[key]
+                curr_str = f"At key {key} the value of actual is {value} but the correct value is {expect_value}\n"
+                out_str += curr_str
+        
+        if verbose >= 1:
+            print(out_str)
+        return out_str
 
 def get_builtin_func():
     import builtins
