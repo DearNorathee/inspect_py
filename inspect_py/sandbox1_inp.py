@@ -24,6 +24,9 @@ def assert_message(actual:Any,expect:Any, verbose:int = 0) -> str:
                 out_str = f"The length of actual is {len(actual)} while it's expected to have the length of {len(expect)}\n"
             only_in_actual = [x for x in actual if x not in expect]
             only_in_expect = [x for x in expect if x not in actual]
+            # already correct list
+            if len(only_in_actual) == 0 and len(only_in_expect) == 0:
+                return ""
             out_str += f"these items are only in actual {only_in_actual}\n"
             out_str += f"these items are only in expect {only_in_expect}\n"
         elif isinstance(actual, dict):
@@ -38,6 +41,11 @@ def assert_message(actual:Any,expect:Any, verbose:int = 0) -> str:
                 out_str += curr_str
         elif issubclass(actual, Exception):
             # check error type
+            # correct type
+            if isinstance(actual, expect):
+                return ""
+            else:
+                out_str = f"The error of actual is {actual} while the correct error should be {expect}\n"
             pass
         
         if verbose >= 1:

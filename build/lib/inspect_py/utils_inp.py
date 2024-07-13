@@ -1,5 +1,14 @@
 
 # get_all_functions_names
+from typing import *
+import numpy as np
+
+Scalar_Numpy = Union[np.number, np.bool_, np.object_, np.string_]
+Scalar_BuiltIn = Union[int, float, str, bool, complex]
+
+Scalar = Union[Scalar_BuiltIn,Scalar_Numpy]
+
+
 def obj_function(Classobj,print_list=False):
     method_list = [attribute for attribute in dir(Classobj) if callable(getattr(Classobj, attribute)) and attribute.startswith('__') is False]
     if print_list:
