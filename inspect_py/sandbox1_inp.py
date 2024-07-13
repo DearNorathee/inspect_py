@@ -18,9 +18,6 @@ def assert_message(actual:Any,expect:Any, verbose:int = 0) -> str:
             pass
         elif isinstance(actual, list):
             pass
-        elif issubclass(actual, Exception):
-            # check error type
-            pass
         elif isinstance(actual, dict):
             if len(actual) != len(expect):
                 out_str = f"The length of actual is {len(actual)} while it's expected to have the length of {len(expect)}\n"
@@ -31,6 +28,9 @@ def assert_message(actual:Any,expect:Any, verbose:int = 0) -> str:
                 expect_value = expect[key]
                 curr_str = f"At key {key} the value of actual is {value} but the correct value is {expect_value}\n"
                 out_str += curr_str
+        elif issubclass(actual, Exception):
+            # check error type
+            pass
         
         if verbose >= 1:
             print(out_str)
