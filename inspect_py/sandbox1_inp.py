@@ -4,20 +4,28 @@ from pathlib import Path
 
 def assert_message(actual:Any,expect:Any, verbose:int = 0) -> str:
     # not done with list
+
+    # done with list and Scalar but haven't tested
+
     import numpy as np
     Scalar_Numpy = Union[np.number, np.bool_, np.object_, np.string_]
     Scalar_BuiltIn = Union[int, float, str, bool, np.number, np.bool_]
-    Scaler = Union[Scalar_BuiltIn,Scalar_Numpy]
+    Scalar = Union[Scalar_BuiltIn,Scalar_Numpy]
     
     
     if type(actual) != type(expect):
-        out_str = f"The type of actual is {type(actual)} while it's expected to be {type(expect)}"
+        out_str = f"The type of actual is {type(actual)} while the correct type is {type(expect)}"
         return out_str
     else:
-        if isinstance(actual, Scaler):
-            pass
+        if isinstance(actual, Scalar):
+            out_str = f"The actual is {actual} while the correct would be {expect}\n"
         elif isinstance(actual, list):
-            pass
+            if len(actual) != len(expect):
+                out_str = f"The length of actual is {len(actual)} while it's expected to have the length of {len(expect)}\n"
+            only_in_actual = [x for x in actual if x not in expect]
+            only_in_expect = [x for x in expect if x not in actual]
+            out_str += f"these items are only in actual {only_in_actual}\n"
+            out_str += f"these items are only in expect {only_in_expect}\n"
         elif isinstance(actual, dict):
             if len(actual) != len(expect):
                 out_str = f"The length of actual is {len(actual)} while it's expected to have the length of {len(expect)}\n"

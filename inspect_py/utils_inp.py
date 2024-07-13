@@ -6,7 +6,7 @@ import numpy as np
 Scalar_Numpy = Union[np.number, np.bool_, np.object_, np.string_]
 Scalar_BuiltIn = Union[int, float, str, bool, complex]
 
-Scaler = Union[Scalar_BuiltIn,Scalar_Numpy]
+Scalar = Union[Scalar_BuiltIn,Scalar_Numpy]
 
 
 def obj_function(Classobj,print_list=False):
