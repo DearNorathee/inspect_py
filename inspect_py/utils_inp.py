@@ -3,7 +3,11 @@
 from typing import *
 import numpy as np
 
-Scalar_Numpy = Union[np.number, np.bool_, np.object_, np.string_]
+try:
+    Scalar_Numpy = Union[np.number, np.bool_, np.object_, np.string_]
+except:
+    # error found in numpy >=2
+    Scalar_Numpy = Union[np.number, np.bool_, np.object_, np.bytes_]
 Scalar_BuiltIn = Union[int, float, str, bool, complex]
 
 Scalar = Union[Scalar_BuiltIn,Scalar_Numpy]
