@@ -5,7 +5,7 @@ setup(
     author_email="noratee5@hotmail.com",
     description="Expansion of inspect to help analyze and automate python code",
     name="inspect_py",
-    version="0.1.4rc3",
+    version="0.1.4",
     packages=find_packages(),
     license="MIT",
     install_requires=[
