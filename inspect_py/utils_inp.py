@@ -3,6 +3,7 @@
 from typing import *
 import numpy as np
 
+# this is for type hint
 try:
     Scalar_Numpy = Union[np.number, np.bool_, np.object_, np.string_]
 except:
@@ -12,6 +13,14 @@ Scalar_BuiltIn = Union[int, float, str, bool, complex]
 
 Scalar = Union[Scalar_BuiltIn,Scalar_Numpy]
 
+# this is for checking types
+try:
+    scalar_numpy_type = (np.number, np.bool_, np.object_, np.string_)
+    scalar_type = (np.number, np.bool_, np.object_, np.string_,int, float, str, bool, np.number, np.bool_)
+except:
+    scalar_numpy_type = (np.number, np.bool_, np.object_, np.bytes_)
+    scalar_builtin_type = (int, float, str, bool, complex)
+    scalar_type = scalar_numpy_type + scalar_builtin_type
 
 def obj_function(Classobj,print_list=False):
     method_list = [attribute for attribute in dir(Classobj) if callable(getattr(Classobj, attribute)) and attribute.startswith('__') is False]

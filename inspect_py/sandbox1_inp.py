@@ -8,9 +8,13 @@ def assert_message(actual:Any,expect:Any, verbose:int = 0) -> str:
     # done with list and Scalar but haven't tested
 
     import numpy as np
-    Scalar_Numpy = Union[np.number, np.bool_, np.object_, np.string_]
-    Scalar_BuiltIn = Union[int, float, str, bool, np.number, np.bool_]
-    Scalar = Union[Scalar_BuiltIn,Scalar_Numpy]
+    try:
+        Scalar_Numpy = (np.number, np.bool_, np.object_, np.string_)
+        Scalar = (np.number, np.bool_, np.object_, np.string_,int, float, str, bool, np.number, np.bool_)
+    except:
+        Scalar_Numpy = (np.number, np.bool_, np.object_, np.bytes_)
+        Scalar = (np.number, np.bool_, np.object_, np.bytes_,int, float, str, bool, np.number, np.bool_)
+    Scalar_BuiltIn = (int, float, str, bool, complex)
     
     
     if type(actual) != type(expect):
@@ -22,6 +26,8 @@ def assert_message(actual:Any,expect:Any, verbose:int = 0) -> str:
         elif isinstance(actual, list):
             if len(actual) != len(expect):
                 out_str = f"The length of actual is {len(actual)} while it's expected to have the length of {len(expect)}\n"
+            else:
+                out_str = ""
             only_in_actual = [x for x in actual if x not in expect]
             only_in_expect = [x for x in expect if x not in actual]
             # already correct list
