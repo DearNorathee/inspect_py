@@ -38,6 +38,8 @@ def assert_message(actual:Any,expect:Any, verbose:int = 0) -> str:
         elif isinstance(actual, dict):
             if len(actual) != len(expect):
                 out_str = f"The length of actual is {len(actual)} while it's expected to have the length of {len(expect)}\n"
+            else:
+                out_str = ""
             key_actual = list(actual.keys())
             key_expect = list(expect.keys())
             
