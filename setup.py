@@ -12,7 +12,9 @@ setup(
         "pandas",
         "py_string_tool>=0.1.4", 
         "python_wizard>=0.1.3", 
-        "os_toolkit >= 0.1.2", ],
+        "os_toolkit >= 0.1.2",
+        "play_audio_file >= 0.1.0"
+          ],
     url = "https://github.com/DearNorathee/inspect_py",
     
     # example
