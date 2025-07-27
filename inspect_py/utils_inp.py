@@ -149,7 +149,10 @@ def handle_multi_input(
             
             # --- Handle Single File ---
             else:
-                func_1file( filepaths,  **kwargs)
+                if "output_folder" in func_input_name:
+                    func_1file( filepaths, output_folder = output_folder, **kwargs)
+                else:
+                    func_1file( filepaths,  **kwargs)
                 if alarm_done:
                     play_alarm_done()
 

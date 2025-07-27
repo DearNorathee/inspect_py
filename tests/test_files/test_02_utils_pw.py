@@ -67,7 +67,7 @@ def custom_sort(input_list:List[Any], begin_with, end_with,ascending=True, strin
             sort_by.append(num)
         except ValueError:
             num_02 = val.split(" ")[0]
-            num_03 = pst.get_num(num_02)
+            num_03 = pst.get_num_from_text(num_02)
             
             # string case
             if val in begin_with:
