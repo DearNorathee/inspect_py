@@ -1,5 +1,5 @@
 import xlwings as xw
-from excel_toolkit.worksheet import ws_at_WB
+from excel_toolkit.worksheet import ws_at_wb
 from excel_toolkit.M01_String import St_ContainsNum
 from typing import List, Literal,Union
 
@@ -11,7 +11,7 @@ def find_all_range(str_list, ws, wb=None, as_list=True, search_rng=None, caseSen
     
     
     #  about 2 hrs to write 
-    ws01 = ws_at_WB(ws, wb)
+    ws01 = ws_at_wb(ws, wb)
     out_list:List[xw.main.Range] = []
 
     # Set the search area
@@ -91,7 +91,7 @@ def pick_til_end(rng, direction) -> xw.main.Range:
 
 def find_all_range_slow(str_list,ws,wb=None,as_list=True,search_rng=None,caseSensitive=False) -> xw.main.Range :
     # still slow
-    ws01 = ws_at_WB(ws,wb)
+    ws01 = ws_at_wb(ws,wb)
     out_list = []
     outRng = None
 
